@@ -1,13 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoArrowForwardSharp } from "react-icons/io5";
-// import { RiLogoutCircleLine } from "react-icons/ri";
-// import { MdDashboardCustomize } from "react-icons/md";
+import { RiLogoutCircleLine } from "react-icons/ri";
+import { MdDashboardCustomize } from "react-icons/md";
 import { useState } from "react";
 import MobileNav from "../MobileNav/MobileNav";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../feature/auth/authSlice";
+import { useLogOutQueryMutation } from "../../feature/api/apiSlice";
 
 export default function NavBar() {
+  const [logOutQuery] = useLogOutQueryMutation();
+
   const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
+  const { user, accessToken } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const res = await logOutQuery();
+    if (res?.data?.statusCode) {
+      dispatch(logOut());
+      navigate("/sign-in");
+    }
+  };
+
   return (
     <nav>
       <div className="wrapper pt-3 px-4 xl:px-0">
@@ -75,35 +93,42 @@ export default function NavBar() {
 
           <div className="hidden sm:block">
             <ul className="flex items-center gap-6 font-semibold">
-              <li>
-                <Link
-                  className="flex items-center gap-2 bg-white text-[#1D2531] py-[6px] px-10 border border-[#1D2531] rounded-full hover:bg-[#155EAD] hover:text-white hover:border-blue-600 transition-all"
-                  to="/sign-in"
-                >
-                  Login
-                  <IoArrowForwardSharp />
-                </Link>
-              </li>
+              {!accessToken && !user?.email && (
+                <li>
+                  <Link
+                    className="flex items-center gap-2 bg-white text-[#1D2531] py-[6px] px-10 border border-[#1D2531] rounded-full hover:bg-[#155EAD] hover:text-white hover:border-blue-600 transition-all"
+                    to="/sign-in"
+                  >
+                    Login
+                    <IoArrowForwardSharp />
+                  </Link>
+                </li>
+              )}
 
-              {/* <li>
-                <Link
-                  className="flex items-center gap-2 bg-white text-[#1D2531] py-[6px] px-10 border border-[#1D2531] rounded-full hover:bg-[#155EAD] hover:text-white hover:border-blue-600 transition-all"
-                  to="/sign-in"
-                >
-                  Logout
-                  <RiLogoutCircleLine />
-                </Link>
-              </li> */}
+              {accessToken && user?.email && (
+                <li>
+                  <Link
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 bg-white text-[#1D2531] py-[6px] px-10 border border-[#1D2531] rounded-full hover:bg-[#155EAD] hover:text-white hover:border-blue-600 transition-all"
+                    to="/sign-in"
+                  >
+                    Logout
+                    <RiLogoutCircleLine />
+                  </Link>
+                </li>
+              )}
 
-              {/* <li>
-                <Link
-                  className="flex items-center gap-2 bg-white text-[#1D2531] py-[7px] px-10 border border-[#1D2531] rounded-full hover:bg-[#155EAD] hover:text-white hover:border-blue-600 transition-all"
-                  to="/dashboard"
-                >
-                  Dashboard
-                  <MdDashboardCustomize />
-                </Link>
-              </li> */}
+              {accessToken && user?.email && (
+                <li>
+                  <Link
+                    className="flex items-center gap-2 bg-white text-[#1D2531] py-[7px] px-10 border border-[#1D2531] rounded-full hover:bg-[#155EAD] hover:text-white hover:border-blue-600 transition-all"
+                    to="/dashboard"
+                  >
+                    Dashboard
+                    <MdDashboardCustomize />
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
           <div

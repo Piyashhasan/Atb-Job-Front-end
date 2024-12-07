@@ -1,13 +1,30 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaRegUser, FaChalkboardUser } from "react-icons/fa6";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useSidebar } from "../../context/SidebarContext";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../feature/auth/authSlice";
+import { useLogOutQueryMutation } from "../../feature/api/apiSlice";
 
 export default function DashboardSidebar() {
+  const [logOutQuery] = useLogOutQueryMutation();
+
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
+
   const { hideSidebar } = useSidebar();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const res = await logOutQuery();
+    if (res?.data?.statusCode) {
+      dispatch(logOut());
+      navigate("/sign-in");
+    }
+  };
 
   return (
     <div className="py-7 flex flex-col items-center justify-center">
@@ -118,7 +135,11 @@ export default function DashboardSidebar() {
             </Link>
           </li>
           <li>
-            <Link to="/" className={`flex items-center gap-2 `}>
+            <Link
+              onClick={handleLogout}
+              to="/"
+              className={`flex items-center gap-2 `}
+            >
               <RiLogoutCircleLine className="text-2xl" />
               <span className="font-[500] text-[18px]">Logout</span>
             </Link>

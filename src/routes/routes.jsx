@@ -8,6 +8,7 @@ import NotFound from "../shared/NotFound/NotFound";
 import User from "../pages/Dashboard/User";
 import Employer from "../pages/Dashboard/Employer";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import ProtectedRoute from "../shared/ProtectedRoute/ProtectedRoute";
 
 export const routes = createBrowserRouter([
   {
@@ -20,11 +21,11 @@ export const routes = createBrowserRouter([
       },
       {
         path: "sign-in",
-        element: <SignIn />,
+        element: <ProtectedRoute element={<SignIn />} isPrivate={false} />,
       },
       {
         path: "sign-up",
-        element: <SignUp />,
+        element: <ProtectedRoute element={<SignUp />} isPrivate={false} />,
       },
     ],
   },
@@ -34,18 +35,42 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Dashboard />,
+        element: <ProtectedRoute element={<Dashboard />} isPrivate={true} />,
       },
       {
         path: "user",
-        element: <User />,
+        element: <ProtectedRoute element={<User />} isPrivate={true} />,
       },
       {
         path: "employer",
-        element: <Employer />,
+        element: <ProtectedRoute element={<Employer />} isPrivate={true} />,
       },
     ],
   },
+  // {
+  //   path: "/dashboard",
+  //   element: <ProtectedRoute />,
+  //   children: [
+  //     {
+  //       path: "",
+  //       element: <DashboardLayout />,
+  //       children: [
+  //         {
+  //           path: "",
+  //           element: <Dashboard />,
+  //         },
+  //         {
+  //           path: "user",
+  //           element: <User />,
+  //         },
+  //         {
+  //           path: "employer",
+  //           element: <Employer />,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     path: "*",
     element: <NotFound />,

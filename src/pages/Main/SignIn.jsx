@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSignInMutation } from "../../feature/api/apiSlice";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../feature/auth/authSlice";
 
 export default function SignIn() {
+  const [signIn, { isLoading, isError, error, isSuccess }] =
+    useSignInMutation();
+
+  const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword(!showPassword);
+
+  const navigate = useNavigate();
 
   // --- form state ---
   const {
@@ -16,10 +27,44 @@ export default function SignIn() {
   } = useForm();
 
   // --- handle signIn form submit ---
-  const onSubmit = (data) => {
-    console.log("--- data ---", data);
-    reset();
+  const onSubmit = async (data) => {
+    if (data) {
+      const res = await signIn(data);
+
+      if (res?.data?.statusCode === 200) {
+        const { accessToken, user } = res.data.data;
+
+        // Save to localStorage
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        dispatch(setUser({ user, accessToken }));
+
+        reset();
+      }
+    }
   };
+
+  // --- toast handle ---
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Loading ...", { id: "signIn" });
+    }
+
+    if (!isLoading && isError) {
+      if (error) {
+        toast.error(error?.data?.message, { id: "signIn" });
+      }
+    }
+
+    if (isSuccess) {
+      toast.success("Sign In successfully", { id: "signIn" });
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1200);
+    }
+  }, [isSuccess, isLoading, isError, navigate, error]);
+
   return (
     <div className="wrapper py-5 px-2 sm:px-0">
       <div className="flex items-center justify-center">

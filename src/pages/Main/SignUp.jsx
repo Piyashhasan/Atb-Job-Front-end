@@ -1,11 +1,18 @@
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useSignUpMutation } from "../../feature/api/apiSlice.js";
+import toast from "react-hot-toast";
 
 export default function SignUp() {
+  const [signUp, { isLoading, isError, error, isSuccess }] =
+    useSignUpMutation();
+
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword(!showPassword);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,10 +22,35 @@ export default function SignUp() {
   } = useForm();
 
   // --- handle signUp form submit ---
-  const onSubmit = (data) => {
-    console.log("-- data ---", data);
-    reset();
+  const onSubmit = async (data) => {
+    if (data) {
+      const res = await signUp(data);
+      if (res?.data?.statusCode === 201) {
+        reset();
+      }
+    }
   };
+
+  // --- toast handle ---
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Loading ...", { id: "signUp" });
+    }
+
+    if (!isLoading && isError) {
+      if (error) {
+        toast.error(error?.data?.message, { id: "signUp" });
+      }
+    }
+
+    if (isSuccess) {
+      toast.success("Sign up successfully", { id: "signUp" });
+      setTimeout(() => {
+        navigate("/sign-in");
+      }, 1200);
+    }
+  }, [isSuccess, isLoading, isError, navigate, error]);
+
   return (
     <div className="wrapper py-5 px-2 sm:px-0">
       <div className="flex items-center justify-center">

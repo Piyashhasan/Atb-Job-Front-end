@@ -14,7 +14,7 @@ export default function MobileNav({ toggleMobileMenu, setToggleMobileMenu }) {
         <ul className="flex flex-col items-center justify-center gap-8 font-bold text-lg">
           <li onClick={() => setToggleMobileMenu(!toggleMobileMenu)}>
             <Link
-              className="py-3 px-8 text-white rounded-xl hover:bg-[#1ABC9C] uppercase"
+              className="py-3 px-8 text-white rounded-xl uppercase"
               to="/sign-in"
             >
               Sign In
