@@ -29,8 +29,8 @@ export default function DashboardSidebar() {
     const res = await logOutQuery();
     if (res?.data?.statusCode) {
       dispatch(logOut());
-      navigate("/sign-in");
     }
+    navigate("/sign-in");
   };
 
   return (
@@ -146,7 +146,7 @@ export default function DashboardSidebar() {
           <li>
             <Link
               onClick={handleLogout}
-              to="/"
+              to=""
               className={`flex items-center gap-2 `}
             >
               <RiLogoutCircleLine className="text-2xl" />
