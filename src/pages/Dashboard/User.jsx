@@ -14,11 +14,11 @@ export default function User() {
   const { showSidebar } = useSidebar();
 
   if (isLoading) {
-    return <p>Loading....</p>;
+    return <p className="text-center pt-20">Loading....</p>;
   }
 
   if (error) {
-    return <p>Error from server....</p>;
+    return <p className="text-center pt-20">Error from server....</p>;
   }
 
   return (

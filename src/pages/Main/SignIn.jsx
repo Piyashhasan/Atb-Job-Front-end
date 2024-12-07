@@ -30,7 +30,7 @@ export default function SignIn() {
   const onSubmit = async (data) => {
     if (data) {
       const res = await signIn(data);
-
+      console.log("---res---", res);
       if (res?.data?.statusCode === 200) {
         const { accessToken, user } = res.data.data;
 

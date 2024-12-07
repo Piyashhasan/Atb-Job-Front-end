@@ -10,11 +10,11 @@ export default function Employer() {
   const { showSidebar } = useSidebar();
 
   if (isLoading) {
-    return <p>Loading ...</p>;
+    return <p className="text-center pt-20">Loading....</p>;
   }
 
   if (isError) {
-    return <p>Error ...</p>;
+    return <p className="text-center pt-20">Error from server....</p>;
   }
 
   return (
