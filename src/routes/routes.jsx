@@ -7,6 +7,7 @@ import SignUp from "../pages/Main/SignUp";
 import NotFound from "../shared/NotFound/NotFound";
 import User from "../pages/Dashboard/User";
 import Employer from "../pages/Dashboard/Employer";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 export const routes = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const routes = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
       {
         path: "user",
         element: <User />,

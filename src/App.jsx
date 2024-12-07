@@ -5,12 +5,15 @@ import "./App.css";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./routes/routes";
+import { SidebarProvider } from "./context/SidebarContext";
 
 function App() {
   return (
     <>
-      <Toaster />
-      <RouterProvider router={routes} />
+      <SidebarProvider>
+        <Toaster />
+        <RouterProvider router={routes} />
+      </SidebarProvider>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import handWave from "../../assets/images/hand_wave.png";
 import headerImg from "../../assets/images/header_img.png";
 
@@ -27,9 +28,11 @@ export default function Home() {
               Lets start with a quick product tour and discover how easy it is
               <br /> get started..!
             </p>
-            <button className="text-[#1D2531] mt-8 px-8 py-2 rounded-full border border-[#1D2531] hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">
-              Get Started
-            </button>
+            <Link to="/dashboard">
+              <button className="text-[#1D2531] mt-8 px-8 py-2 rounded-full border border-[#1D2531] hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </div>
