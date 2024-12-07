@@ -3,11 +3,12 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { FaRegUser, FaChalkboardUser } from "react-icons/fa6";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useSidebar } from "../../context/SidebarContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../feature/auth/authSlice";
 import { useLogOutQueryMutation } from "../../feature/api/apiSlice";
 
 export default function DashboardSidebar() {
+  const { user } = useSelector((state) => state?.auth);
   const [logOutQuery] = useLogOutQueryMutation();
 
   const location = useLocation();
@@ -88,13 +89,15 @@ export default function DashboardSidebar() {
           </svg>
         </Link>
       </div>
-      <div className="my-8">
+      <div className="my-8 flex flex-col items-center">
         <img
           className="w-20 h-20 rounded-full object-cover object-top"
           src="https://jobi-nextjs.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar_03.f35eb58b.jpg&w=96&q=75"
           alt=""
         />
-        <p className="font-[500] leading-7 mt-3">John Doe</p>
+        <p className="font-[500] leading-7 mt-3">
+          {user?.fullName ? user?.fullName : ""}
+        </p>
       </div>
       <div className="mt-5">
         <ul className="flex flex-col gap-y-8">

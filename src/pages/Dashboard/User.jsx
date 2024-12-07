@@ -5,10 +5,22 @@ import { FaEdit } from "react-icons/fa";
 import UserInfoEditForm from "../../components/UserInfoEditForm/UserInfoEditForm";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useSidebar } from "../../context/SidebarContext";
+import { useGetUserInfoQuery } from "../../feature/api/apiSlice";
 
 export default function User() {
+  const { data, error, isLoading } = useGetUserInfoQuery();
+
   const [visible, setVisible] = useState(false);
   const { showSidebar } = useSidebar();
+
+  if (isLoading) {
+    return <p>Loading....</p>;
+  }
+
+  if (error) {
+    return <p>Error from server....</p>;
+  }
+
   return (
     <>
       <div className="p-4 sm:px-8 sm:py-10 h-screen">
@@ -36,26 +48,29 @@ export default function User() {
               <div className="flex flex-col items-center">
                 <div className="flex items-center gap-x-2">
                   <h2 className="text-xl font-bold text-gray-800">
-                    Piyash Hasan
+                    {data?.data?.fullName ? data?.data?.fullName : "N/A"}
                   </h2>
                   <Chip
                     className="px-2 py-[1px] bg-green-400 text-white text-[12px]"
                     label="Verified"
                   />
                 </div>
-                <p className="text-gray-600 mb-4 mt-3">
-                  piyashhasan38@gmail.com
+                <p className="text-gray-600 mb-4 mt-3 text-center">
+                  {data?.data?.email ? data?.data?.email : "N/A"}
                 </p>
               </div>
               <div className="space-y-2 capitalize">
-                <p className="text-gray-700">
-                  <span className="font-semibold">Nick Name:</span> 239847234
+                <p className="text-gray-700 text-center">
+                  <span className="font-semibold">Nick Name:</span>{" "}
+                  {data?.data?.nickName ? data?.data?.nickName : "N/A"}
                 </p>
-                <p className="text-gray-700">
-                  <span className="font-semibold">Phone:</span> 239847234
+                <p className="text-gray-700 text-center">
+                  <span className="font-semibold">Phone:</span>{" "}
+                  {data?.data?.phone ? data?.data?.phone : "N/A"}
                 </p>
-                <p className="text-gray-700">
-                  <span className="font-semibold">Address:</span> bogura
+                <p className="text-gray-700 text-center">
+                  <span className="font-semibold">Address:</span>{" "}
+                  {data?.data?.address ? data?.data?.address : "N/A"}
                 </p>
               </div>
             </div>
@@ -72,7 +87,7 @@ export default function User() {
         style={{ width: "50vw" }}
         breakpoints={{ "960px": "75vw", "641px": "100vw" }}
       >
-        <UserInfoEditForm />
+        <UserInfoEditForm setVisible={setVisible} />
       </Dialog>
     </>
   );
