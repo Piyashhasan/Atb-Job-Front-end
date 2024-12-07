@@ -37,7 +37,6 @@ ul li {
   transition: transform 0.5s ease-in-out;
   transform: translateX(-100%);
 }
-
 .overly-effect.open {
   transform: translateX(0);
 }
@@ -47,22 +46,16 @@ ul li {
 }
 
 /* --- scroll bar customize --- */
-/* width */
 ::-webkit-scrollbar {
   width: 3px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #1d2531;
 }
-
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #244034;
 }
