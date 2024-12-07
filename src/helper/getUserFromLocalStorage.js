@@ -1,3 +1,4 @@
+// --- helper function for getInfo from LocalStorage ---
 export const getUserFromLocalStorage = () => {
   const user = localStorage.getItem("user");
   const accessToken = localStorage.getItem("accessToken");

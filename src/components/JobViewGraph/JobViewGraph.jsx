@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 
 export default function JobViewGraph() {
+  // --- chart state ---
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 

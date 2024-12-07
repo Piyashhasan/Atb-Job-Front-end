@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// --- base URL ---
 const baseUrl = import.meta.env.VITE_SERVER_URL;
 
 // --- root app api query ---
 export const apiSlice = createApi({
-  reducerPath: "tasksApi",
+  reducerPath: "rootApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseUrl}/api/v1/user`,
   }),
@@ -18,6 +19,7 @@ export const apiSlice = createApi({
         body: userData,
       }),
     }),
+
     signIn: builder.mutation({
       query: (userData) => ({
         url: "/sign-in",
@@ -69,6 +71,7 @@ export const apiSlice = createApi({
   }),
 });
 
+// --- export rtk query ---
 export const {
   useSignUpMutation,
   useSignInMutation,

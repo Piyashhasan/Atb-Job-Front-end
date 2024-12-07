@@ -8,14 +8,18 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../feature/auth/authSlice";
 
 export default function SignIn() {
+  // --- SignIn functionality rtk query ---
   const [signIn, { isLoading, isError, error, isSuccess }] =
     useSignInMutation();
 
+  // --- dispatch ---
   const dispatch = useDispatch();
 
+  // --- password show/hide toggler ---
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword(!showPassword);
 
+  // --- navigate ---
   const navigate = useNavigate();
 
   // --- form state ---
@@ -30,14 +34,14 @@ export default function SignIn() {
   const onSubmit = async (data) => {
     if (data) {
       const res = await signIn(data);
-      console.log("---res---", res);
       if (res?.data?.statusCode === 200) {
         const { accessToken, user } = res.data.data;
 
-        // Save to localStorage
+        // save to localStorage
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("user", JSON.stringify(user));
 
+        // dispatch action to store
         dispatch(setUser({ user, accessToken }));
 
         reset();

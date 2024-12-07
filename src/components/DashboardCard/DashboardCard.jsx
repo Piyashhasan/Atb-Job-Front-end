@@ -4,7 +4,7 @@ import { IoEyeSharp } from "react-icons/io5";
 
 export default function DashboardCard() {
   return (
-    <div>
+    <>
       <h2 className="text-4xl text-[#1D2531] font-[500] leading-9">
         Dashboard
       </h2>
@@ -54,6 +54,6 @@ export default function DashboardCard() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

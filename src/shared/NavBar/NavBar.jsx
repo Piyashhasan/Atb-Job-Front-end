@@ -10,20 +10,26 @@ import { logOut } from "../../feature/auth/authSlice";
 import { useLogOutQueryMutation } from "../../feature/api/apiSlice";
 
 export default function NavBar() {
+  // --- logout rtk query ---
   const [logOutQuery] = useLogOutQueryMutation();
 
+  // --- toggle mobile menu ---
   const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
+
+  // --- get userInfo + token from store ---
   const { user, accessToken } = useSelector((state) => state.auth);
 
+  // --- dispatch ---
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // --- handle logout ---
   const handleLogout = async () => {
     const res = await logOutQuery();
     if (res?.data?.statusCode) {
       dispatch(logOut());
-      navigate("/sign-in");
     }
+    navigate("/sign-in");
   };
 
   return (
@@ -110,7 +116,7 @@ export default function NavBar() {
                   <Link
                     onClick={handleLogout}
                     className="flex items-center gap-2 bg-white text-[#1D2531] py-[6px] px-10 border border-[#1D2531] rounded-full hover:bg-[#155EAD] hover:text-white hover:border-blue-600 transition-all"
-                    to="/sign-in"
+                    to="/"
                   >
                     Logout
                     <RiLogoutCircleLine />

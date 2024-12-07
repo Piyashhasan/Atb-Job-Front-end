@@ -3,12 +3,13 @@ import { postedJobs } from "../../utils/postedJobs";
 
 export default function PostedJob() {
   return (
-    <div>
+    <>
       <p className="font-[500] text-xl text-[#1D2531] leading-6 pb-5">
         Posted Job
       </p>
       <hr />
 
+      {/* --- posted job item start --- */}
       {postedJobs.map((job, index) => {
         return (
           <div key={index} className="flex items-center justify-between my-7">
@@ -23,6 +24,7 @@ export default function PostedJob() {
           </div>
         );
       })}
-    </div>
+      {/* --- posted job item end --- */}
+    </>
   );
 }

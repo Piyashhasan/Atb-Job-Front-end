@@ -7,6 +7,7 @@ import PostedJob from "../../components/PostedJob/PostedJob";
 import { useSidebar } from "../../context/SidebarContext";
 
 export default function Dashboard() {
+  // --- dashboard sidebar hide/show context ---
   const { showSidebar } = useSidebar();
 
   return (
@@ -36,6 +37,7 @@ export default function Dashboard() {
         <DashboardCard />
         {/* --- tracking card --- */}
 
+        {/* --- chart + posted job card --- */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-10">
           <div className="bg-white w-full rounded-3xl p-6">
             <JobViewGraph />
@@ -44,6 +46,7 @@ export default function Dashboard() {
             <PostedJob />
           </div>
         </div>
+        {/* --- chart + posted job card --- */}
       </div>
     </div>
   );

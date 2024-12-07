@@ -8,14 +8,20 @@ import { logOut } from "../../feature/auth/authSlice";
 import { useLogOutQueryMutation } from "../../feature/api/apiSlice";
 
 export default function DashboardSidebar() {
+  // --- user get from store ---
   const { user } = useSelector((state) => state?.auth);
+
+  // --- logout rtk query ---
   const [logOutQuery] = useLogOutQueryMutation();
 
+  // --- active link ---
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
+  // --- show/visible side bar context ---
   const { hideSidebar } = useSidebar();
 
+  // --- dispatch ---
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

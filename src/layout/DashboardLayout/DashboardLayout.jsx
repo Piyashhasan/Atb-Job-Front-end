@@ -4,7 +4,9 @@ import { Sidebar } from "primereact/sidebar";
 import { useSidebar } from "../../context/SidebarContext";
 
 const DashboardLayout = () => {
+  // --- dashboard sidebar hide/show context ---
   const { visible, hideSidebar } = useSidebar();
+
   return (
     <>
       <div className="grid grid-cols-12 xl:h-[calc(100vh-0px)]">

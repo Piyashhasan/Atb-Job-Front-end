@@ -8,17 +8,23 @@ import { useSidebar } from "../../context/SidebarContext";
 import { useGetUserInfoQuery } from "../../feature/api/apiSlice";
 
 export default function User() {
+  // --- get user info rtk query ---
   const { data, error, isLoading } = useGetUserInfoQuery();
 
+  // --- userinformation update form modal show/hide ---
   const [visible, setVisible] = useState(false);
+
+  // --- dashboard sidebar hide/show context ---
   const { showSidebar } = useSidebar();
 
+  // --- manage loading state ---
   if (isLoading) {
-    return <p className="text-center pt-20">Loading....</p>;
+    return <p className="text-center pt-20 h-screen">Loading....</p>;
   }
 
+  // --- manage error state ---
   if (error) {
-    return <p className="text-center pt-20">Error from server....</p>;
+    return <p className="text-center pt-20 h-screen">Error from server....</p>;
   }
 
   return (
@@ -66,7 +72,7 @@ export default function User() {
                 </p>
                 <p className="text-gray-700 text-center">
                   <span className="font-semibold">Phone:</span>{" "}
-                  {data?.data?.phone ? data?.data?.phone : "N/A"}
+                  {data?.data?.phone ? `0${data?.data?.phone}` : "N/A"}
                 </p>
                 <p className="text-gray-700 text-center">
                   <span className="font-semibold">Address:</span>{" "}

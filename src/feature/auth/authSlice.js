@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserFromLocalStorage } from "../../helper/getUserFromLocalStorage";
 
-// Get the user and token from localStorage initially
+// --- get the user and token from localStorage initially ---
 const { user, accessToken } = getUserFromLocalStorage();
 
+// --- initial state ---
 const initialState = {
   user,
   accessToken,
 };
 
+// --- authSlice ---
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -27,6 +29,8 @@ export const authSlice = createSlice({
   },
 });
 
+// --- export actions ---
 export const { setUser, logOut } = authSlice.actions;
 
+// --- export reducer ---
 export default authSlice.reducer;

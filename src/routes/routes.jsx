@@ -10,6 +10,7 @@ import Employer from "../pages/Dashboard/Employer";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import ProtectedRoute from "../shared/ProtectedRoute/ProtectedRoute";
 
+// --- routes configure ---
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -47,30 +48,6 @@ export const routes = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "/dashboard",
-  //   element: <ProtectedRoute />,
-  //   children: [
-  //     {
-  //       path: "",
-  //       element: <DashboardLayout />,
-  //       children: [
-  //         {
-  //           path: "",
-  //           element: <Dashboard />,
-  //         },
-  //         {
-  //           path: "user",
-  //           element: <User />,
-  //         },
-  //         {
-  //           path: "employer",
-  //           element: <Employer />,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
   {
     path: "*",
     element: <NotFound />,

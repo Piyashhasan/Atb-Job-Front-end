@@ -6,25 +6,27 @@ import {
 import toast from "react-hot-toast";
 
 export default function UserInfoEditForm({ setVisible }) {
+  // --- user information rtk query ---
   const { data } = useGetUserInfoQuery();
 
+  // --- user information update rtk query ---
   const [userUpdate, { isLoading, isError, error, isSuccess }] =
     useUserUpdateMutation();
 
-  // State for form inputs
+  // --- state for form inputs ---
   const [formData, setFormData] = useState({
     nickName: data?.data?.nickName || "",
     phone: data?.data?.phone || "",
     address: data?.data?.address || "",
   });
 
-  // Handler for input changes
+  // --- handler for input changes ---
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
+  // --- handle form submission ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData) {

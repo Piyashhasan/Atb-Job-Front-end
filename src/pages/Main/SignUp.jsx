@@ -6,14 +6,18 @@ import { useSignUpMutation } from "../../feature/api/apiSlice.js";
 import toast from "react-hot-toast";
 
 export default function SignUp() {
+  // --- SignUn functionality rtk query ---
   const [signUp, { isLoading, isError, error, isSuccess }] =
     useSignUpMutation();
 
+  // --- password show/hide toggler ---
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword(!showPassword);
 
+  // --- navigate ---
   const navigate = useNavigate();
 
+  // --- form state ---
   const {
     register,
     formState: { errors },

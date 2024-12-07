@@ -5,16 +5,20 @@ import { useSidebar } from "../../context/SidebarContext";
 import { useGetEmployeeInfoQuery } from "../../feature/api/apiSlice";
 
 export default function Employer() {
+  // --- get employee information rtk query ---
   const { data, isLoading, isError } = useGetEmployeeInfoQuery();
 
+  // --- dashboard sidebar hide/show context ---
   const { showSidebar } = useSidebar();
 
+  // --- manage loading state ---
   if (isLoading) {
-    return <p className="text-center pt-20">Loading....</p>;
+    return <p className="text-center pt-20 h-screen">Loading....</p>;
   }
 
+  // --- manage error state ---
   if (isError) {
-    return <p className="text-center pt-20">Error from server....</p>;
+    return <p className="text-center pt-20 h-screen">Error from server....</p>;
   }
 
   return (
@@ -124,7 +128,7 @@ export default function Employer() {
                     href={data?.employer[0]?.web ? data?.employer[0]?.web : "#"}
                     target="_blank"
                   >
-                    <BsBrowserEdge className="text-3xl" />
+                    <BsBrowserEdge className="text-3xl hover:text-blue-500 transition-all" />
                   </a>
                   <a
                     href={
@@ -132,7 +136,7 @@ export default function Employer() {
                     }
                     target="_blank"
                   >
-                    <FaYoutube className="text-3xl" />
+                    <FaYoutube className="text-3xl hover:text-red-600 transition-all" />
                   </a>
                 </div>
               </div>
